@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las Parcelas - Inicio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="search.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Menú de navegación principal -->
+    <nav class="main-nav">
+        <div class="logo">
+            <h1>Las Parcelas</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Inicio</a>
+            <a href="productos.html">Productos</a>
+            <a href="ventas.html">Ventas</a>
+            <a href="registro-productores.html">Registro</a>
+            <a href="carrito.html">Carrito</a>
+            <a href="ventas-producctores.html">Panel Productores</a>
+        </div>
+        <a href="#" class="account-button" id="account-button">
+            <img src="img/usericon.png" alt="Cuenta">
+            <span id="user-status">Iniciar Sesión</span>
+        </a>
+        <div class="nav-icons">
+            <a href="#" class="cart-button" id="cart-btn">
+                <img src="img/carticon.jpg" alt="Carrito">
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+    
+    <!-- Modal de autenticación -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-modal-content">
+            <button class="close-auth-modal" id="close-auth-modal">&times;</button>
+            
+            <!-- Pestañas de autenticación -->
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Iniciar Sesión</button>
+                <button class="auth-tab" data-tab="register">Registrarse</button>
+                <button class="auth-tab" data-tab="profile" style="display: none;">Perfil</button>
+            </div>
+            
+            <!-- Formulario de inicio de sesión -->
+            <div id="login-tab" class="auth-tab-content active">
+                <div class="auth-form">
+                    <h2>Iniciar Sesión</h2>
+                    <p class="auth-subtitle">Ingresa tus credenciales para acceder a tu cuenta</p>
+                    
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-email">Correo Electrónico</label>
+                            <input type="email" id="login-email" name="email" required>
+                            <div class="error-message" id="login-email-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="login-password">Contraseña</label>
+                            <div class="password-input">
+                                <input type="password" id="login-password" name="password" required>
+                                <button type="button" class="toggle-password" data-target="login-password">
+                                    <i class="eye-icon">👁️</i>
+                                </button>
+                            </div>
+                            <div class="error-message" id="login-password-error"></div>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="remember-me">
+                                <span class="checkmark"></span>
+                                Recordarme
+                            </label>
+                            <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                        </div>
+                        
+                        <button type="submit" class="btn-auth" id="login-btn">
+                            <span class="btn-text">Iniciar Sesión</span>
+                            <div class="btn-spinner" style="display: none;"></div>
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p>¿No tienes una cuenta? 
+                            <a href="#" class="switch-tab" data-tab="register">Regístrate aquí</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formulario de registro -->
+            <div id="register-tab" class="auth-tab-content">
+                <div class="auth-form">
+                    <h2>Crear Cuenta</h2>
+                    <p class="auth-subtitle">Únete a Las Parcelas y disfruta de nuestros productos</p>
+                    
+                    <form id="register-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="register-firstname">Nombre</label>
+                                <input type="text" id="register-firstname" name="firstname" required>
+                                <div class="error-message" id="register-firstname-error"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-lastname">Apellido</label>
+                                <input type="text" id="register-lastname" name="lastname" required>
+                                <div class="error-message" id="register-lastname-error"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-email">Correo Electrónico</label>
+                            <input type="email" id="register-email" name="email" required>
+                            <div class="error-message" id="register-email-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-phone">Teléfono</label>
+                            <input type="tel" id="register-phone" name="phone" required>
+                            <div class="error-message" id="register-phone-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-password">Contraseña</label>
+                            <div class="password-input">
+                                <input type="password" id="register-password" name="password" required>
+                                <button type="button" class="toggle-password" data-target="register-password">
+                                    <i class="eye-icon">👁️</i>
+                                </button>
+                            </div>
+                            <div class="password-strength">
+                                <div class="strength-meter">
+                                    <div class="strength-fill" id="password-strength-fill"></div>
+                                </div>
+                                <span class="strength-text" id="password-strength-text">Débil</span>
+                            </div>
+                            <div class="error-message" id="register-password-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-confirm-password">Confirmar Contraseña</label>
+                            <div class="password-input">
+                                <input type="password" id="register-confirm-password" name="confirm-password" required>
+                                <button type="button" class="toggle-password" data-target="register-confirm-password">
+                                    <i class="eye-icon">👁️</i>
+                                </button>
+                            </div>
+                            <div class="error-message" id="register-confirm-password-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label terms">
+                                <input type="checkbox" id="accept-terms" required>
+                                <span class="checkmark"></span>
+                                Acepto los <a href="#" class="terms-link">Términos y Condiciones</a> y la <a href="#" class="terms-link">Política de Privacidad</a>
+                            </label>
+                            <div class="error-message" id="terms-error"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn-auth" id="register-btn">
+                            <span class="btn-text">Crear Cuenta</span>
+                            <div class="btn-spinner" style="display: none;"></div>
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p>¿Ya tienes una cuenta? 
+                            <a href="#" class="switch-tab" data-tab="login">Inicia sesión aquí</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Perfil de usuario (cuando está logueado) -->
+            <div id="profile-tab" class="auth-tab-content">
+                <div class="user-profile">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img src="img/usericon.png" alt="Avatar" id="profile-avatar">
+                        </div>
+                        <div class="profile-info">
+                            <h3 id="profile-name">Nombre Usuario</h3>
+                            <p id="profile-email">usuario@email.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-menu">
+                        <a href="#" class="profile-menu-item" id="view-orders">
+                            <span class="menu-icon">📦</span>
+                            Mis Pedidos
+                        </a>
+                        <a href="#" class="profile-menu-item" id="edit-profile">
+                            <span class="menu-icon">⚙️</span>
+                            Editar Perfil
+                        </a>
+                        <a href="#" class="profile-menu-item" id="change-password">
+                            <span class="menu-icon">🔒</span>
+                            Cambiar Contraseña
+                        </a>
+                        <a href="#" class="profile-menu-item" id="logout-btn">
+                            <span class="menu-icon">🚪</span>
+                            Cerrar Sesión
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal del carrito -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-modal-content">
+            <button class="close-cart-modal" id="close-cart-modal">&times;</button>
+            <h2>Mi Carrito</h2>
+            
+            <!-- Pestañas del modal -->
+            <div class="cart-tabs">
+                <button class="cart-tab active" data-tab="items">Productos</button>
+                <button class="cart-tab" data-tab="payment">Pago</button>
+            </div>
+            
+            <!-- Contenido de productos -->
+            <div id="cart-items-tab" class="cart-tab-content active">
+                <div id="cart-modal-items" class="cart-modal-items">
+                    <!-- Los items del carrito se cargarán aquí dinámicamente -->
+                </div>
+                <div class="cart-modal-footer">
+                    <div class="cart-total">
+                        <strong>Total: <span id="cart-modal-total">$0</span></strong>
+                    </div>
+                    <div class="cart-modal-buttons">
+                        <button class="btn-secondary" id="clear-cart-btn">Vaciar Carrito</button>
+                        <button class="btn-primary" id="go-to-payment">Proceder al Pago</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenido de pago -->
+            <div id="cart-payment-tab" class="cart-tab-content">
+                <div class="payment-form">
+                    <h3>Información de Pago</h3>
+                    
+                    <div class="form-section">
+                        <h4>Información Personal</h4>
+                        <div class="form-group">
+                            <label for="payment-name">Nombre Completo</label>
+                            <input type="text" id="payment-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment-email">Correo Electrónico</label>
+                            <input type="email" id="payment-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment-phone">Teléfono</label>
+                            <input type="tel" id="payment-phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>Dirección de Envío</h4>
+                        <div class="form-group">
+                            <label for="payment-address">Dirección</label>
+                            <input type="text" id="payment-address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment-city">Ciudad</label>
+                            <input type="text" id="payment-city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment-region">Región</label>
+                            <select id="payment-region" required>
+                                <option value="">Seleccionar región</option>
+                                <option value="arica">Arica y Parinacota</option>
+                                <option value="tarapaca">Tarapacá</option>
+                                <option value="antofagasta">Antofagasta</option>
+                                <option value="atacama">Atacama</option>
+                                <option value="coquimbo">Coquimbo</option>
+                                <option value="valparaiso">Valparaíso</option>
+                                <option value="metropolitana">Metropolitana</option>
+                                <option value="ohiggins">O'Higgins</option>
+                                <option value="maule">Maule</option>
+                                <option value="nuble">Ñuble</option>
+                                <option value="biobio">Biobío</option>
+                                <option value="araucania">La Araucanía</option>
+                                <option value="losrios">Los Ríos</option>
+                                <option value="loslagos">Los Lagos</option>
+                                <option value="aysen">Aysén</option>
+                                <option value="magallanes">Magallanes</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>Método de Pago</h4>
+                        <div class="payment-methods">
+                            <label class="payment-method">
+                                <input type="radio" name="payment-method" value="transferencia" checked>
+                                <span>Transferencia Bancaria</span>
+                            </label>
+                            <label class="payment-method">
+                                <input type="radio" name="payment-method" value="efectivo">
+                                <span>Efectivo al Retirar</span>
+                            </label>
+                            <label class="payment-method">
+                                <input type="radio" name="payment-method" value="tarjeta">
+                                <span>Tarjeta de Crédito/Débito</span>
+                            </label>
+                        </div>
+                        
+                        <div id="card-details" class="card-details" style="display: none;">
+                            <div class="form-group">
+                                <label for="card-number">Número de Tarjeta</label>
+                                <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="card-expiry">Fecha de Expiración</label>
+                                    <input type="text" id="card-expiry" placeholder="MM/AA">
+                                </div>
+                                <div class="form-group">
+                                    <label for="card-cvv">CVV</label>
+                                    <input type="text" id="card-cvv" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>Resumen del Pedido</h4>
+                        <div class="order-summary">
+                            <div class="summary-row">
+                                <span>Subtotal productos:</span>
+                                <span id="summary-subtotal">$0</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Envío:</span>
+                                <span id="summary-shipping">$0</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span><strong>Total:</strong></span>
+                                <span id="summary-total"><strong>$0</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-actions">
+                        <button class="btn-secondary" id="back-to-items">Volver a Productos</button>
+                        <button class="btn-primary" id="complete-order">Completar Pedido</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Encabezado principal con banner -->
+    <header class="main-header">
+        <div class="header-content">
+            <h1>Bienvenido a Las Parcelas</h1>
+            <p>Los mejores productos del campo y casa directamente</p>
+        </div>
+    </header>
+
+    <!-- Barra de búsqueda -->
+    <section class="search-section">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Buscar productos...">
+            <select id="category-filter">
+                <option value="">Todas las categorías</option>
+                <option value="frutas">Frutas</option>
+                <option value="verduras">Verduras</option>
+                <option value="carnes">Carnes</option>
+                <option value="lacteos">Lácteos</option>
+                <option value="insumos">Insumos</option>
+                <option value="pescados/mariscos">Pescados y Mariscos</option>
+            </select>
+            <button id="search-button">Buscar</button>
+        </div>
+    </section>
+
+    <!-- Productos Destacados -->
+    <section class="featured-products">
+        <h2>Productos Destacados</h2>
+        <div class="product-grid">
+            <article class="product-card">
+                <div class="product-image">
+                    <img src="img/carnes.png" alt="Carne de Vacuno">
+                </div>
+                <div class="product-info">
+                    <h3>Carne de Vacuno</h3>
+                    <p class="product-price">$8.500 / kg</p>
+                    <p class="product-description">Carne de vacuno premium, criado en praderas naturales, tierna y jugosa.</p>
+                    <button class="btn-details">Ver detalles</button>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <div class="product-image">
+                    <img src="img/paltas.jpg" alt="Palta Hass">
+                </div>
+                <div class="product-info">
+                    <h3>Palta Hass</h3>
+                    <p class="product-price">$3.800 / kg</p>
+                    <p class="product-description">Paltas maduras y cremosas, perfectas para preparar guacamole o acompañar tus comidas.</p>
+                    <button class="btn-details">Ver detalles</button>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <div class="product-image">
+                    <img src="img/SEMILLAS.jpg" alt="Heno">
+                </div>
+                <div class="product-info">
+                    <h3>Heno Premium</h3>
+                    <p class="product-price">$12.000 / fardo</p>
+                    <p class="product-description">Heno de alta calidad para alimentación animal, rico en nutrientes y fibra.</p>
+                    <button class="btn-details">Ver detalles</button>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Categorías de Productos -->
+    <section class="product-categories">
+        <h2>Categorías de Productos</h2>
+        <div class="categories-container">
+            <article class="category-card">
+                <h3>Frutas</h3>
+                <img src="img/frutas.jpg" alt="Categoría Frutas">
+                <ul class="category-examples">
+                    <li>Manzanas</li>
+                    <li>Naranjas</li>
+                    <li>Plátanos</li>
+                    <li>Paltas</li>
+                    <li>Mangos</li>
+                </ul>
+                <a href="productos.html?categoria=frutas" class="btn-category">Ver todos</a>
+            </article>
+
+            <article class="category-card">
+                <h3>Verduras</h3>
+                <img src="img/verdura.jpg" alt="Categoría Verduras">
+                <ul class="category-examples">
+                    <li>Zanahorias</li>
+                    <li>Lechugas</li>
+                    <li>Tomates</li>
+                    <li>Papas</li>
+                </ul>
+                <a href="productos.html?categoria=verduras" class="btn-category">Ver todos</a>
+            </article>
+
+            <article class="category-card">
+                <h3>Carnes</h3>
+                <img src="img/carnes.png" alt="Categoría Carnes">
+                <ul class="category-examples">
+                    <li>Vacuno</li>
+                    <li>Pollo</li>
+                    <li>Cerdo</li>
+                    <li>Cordero</li>
+                </ul>
+                <a href="productos.html?categoria=carnes" class="btn-category">Ver todos</a>
+            </article>
+
+            <article class="category-card">
+                <h3>Lácteos y Otros</h3>
+                <img src="img/productos-lacteos.jpg" alt="Categoría Lácteos y Otros">
+                <ul class="category-examples">
+                    <li>Leche</li>
+                    <li>Queso</li>
+                    <li>Yogurt</li>
+                    <li>Mantequilla</li>
+                    <li>Huevos</li>
+                </ul>
+                <a href="productos.html?categoria=lacteos" class="btn-category">Ver todos</a>
+            </article>
+
+            <article class="category-card">
+                <h3>Insumos</h3>
+                <img src="img/SEMILLAS.jpg" alt="Categoría Insumos">
+                <ul class="category-examples">
+                    <li>Semillas</li>
+                    <li>Fertilizantes</li>
+                    <li>Herramientas</li>
+                    <li>Abono</li>
+                    <li>Heno</li>
+                </ul>
+                <a href="productos.html?categoria=insumos" class="btn-category">Ver todos</a>
+            </article>
+
+            <article class="category-card">
+                <h3>Pescados y Mariscos</h3>
+                <img src="img/pescados.jpg" alt="Categoría Pescados y Mariscos">
+                <ul class="category-examples">
+                    <li>Salmón</li>
+                    <li>Atún</li>
+                    <li>Camarones</li>
+                    <li>Locos</li>
+                    <li>Algas Marinas</li>
+                </ul>
+                <a href="productos.html?categoria=pescados" class="btn-category">Ver todos</a>
+            </article>
+        </div>
+    </section>
+
+    <!-- Ofertas Especiales -->
+    <section class="offers-section">
+        <h2>Ofertas Especiales</h2>
+        <div class="offers-container" id="offers-container"></div>
+    </section>
+
+    <!-- Vendedores a Cargo -->
+    <section class="vendors-section">
+        <h2>Nuestros Vendedores Especializados</h2>
+        <div class="vendors-container">
+            <article class="vendor-card">
+                <div class="vendor-image">
+                    <img src="img/frutasyverduras.jpg" alt="Vendedor 1">
+                </div>
+                <div class="vendor-info">
+                    <h3>Alan Alverto Campos</h3>
+                    <p class="vendor-role">Especialista en Frutas y Verduras</p>
+                    <p class="vendor-description">Experto en productos frescos de temporada, con amplia experiencia en cultivos orgánicos.</p>
+                    <div class="vendor-categories">
+                        <span class="category-tag">Frutas</span>
+                        <span class="category-tag">Verduras</span>
+                    </div>
+                    <button class="btn-contact">Contactar</button>
+                </div>
+            </article>
+
+            <article class="vendor-card">
+                <div class="vendor-image">
+                    <img src="img/carneslacteos.jpg" alt="Vendedor 2">
+                </div>
+                <div class="vendor-info">
+                    <h3>Mario Rodríguez</h3>
+                    <p class="vendor-role">Especialista en Carnes y Lácteos</p>
+                    <p class="vendor-description">Profesional con conocimiento en productos de origen animal, asegurando la mejor calidad y frescura.</p>
+                    <div class="vendor-categories">
+                        <span class="category-tag">Carnes</span>
+                        <span class="category-tag">Lácteos y Otros</span>
+                    </div>
+                    <button class="btn-contact">Contactar</button>
+                </div>
+            </article>
+
+            <article class="vendor-card">
+                <div class="vendor-image">
+                    <img src="img/herramientas.jpg" alt="Vendedor 3">
+                </div>
+                <div class="vendor-info">
+                    <h3>Jeremias Shelvi</h3>
+                    <p class="vendor-role">Especialista en Insumos Agrícolas</p>
+                    <p class="vendor-description">Asesor en insumos para agricultura y ganadería, con enfoque en productos sustentables.</p>
+                    <div class="vendor-categories">
+                        <span class="category-tag">Insumos</span>
+                        <span class="category-tag">Semillas</span>
+                        <span class="category-tag">Fertilizantes</span>
+                    </div>
+                    <button class="btn-contact">Contactar</button>
+                </div>
+            </article>
+
+            <article class="vendor-card">
+                <div class="vendor-image">
+                    <img src="img/pescados.jpg" alt="Vendedor 4">
+                </div>
+                
+                <div class="vendor-info">
+                    <h3>Maria Rodriguez</h3>
+                    <p class="vendor-role">Especialista en pesacos y mariscos</p>
+                    <p class="vendor-description">Experta en pesacados, mariscos frescos y algas marinas, con amplia experiencia en el comercio de productos marinos.
+
+                    </p>
+                    <div class="vendor-categories">
+                        <span class="category-tag">algas marinas para caldos</span>
+                        <span class="category-tag">Pescados</span>
+                        <span class="category-tag">Mariscos</span>
+                    </div>
+                    <button class="btn-contact">Contactar</button>
+                </div>
+            </article>
+
+            <article class="vendor-card">
+                <div class="vendor-image">
+                    <img src="img/mango.jpg" alt="Panel Productores">
+                </div>
+                <div class="vendor-info">
+                    <h3>Panel de Productores</h3>
+                    <p class="vendor-role">Administra stock en tiempo real</p>
+                    <p class="vendor-description">Accede al panel para ver y editar productos, stock y precios directamente desde tu inicio.</p>
+                    <div class="vendor-categories">
+                        <span class="category-tag">Stock</span>
+                        <span class="category-tag">Precios</span>
+                        <span class="category-tag">Productores</span>
+                    </div>
+                    <a href="ventas-producctores.html" class="btn-category">Ir al panel de productores</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contact-section">
+        <h2>Contacto</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Información de Contacto</h3>
+                <p><strong>Dirección:</strong> Camino Rural Km 5, La Serena</p>
+                <p><strong>Teléfono:</strong> +56 9 1234 5678</p>
+                <p><strong>Email:</strong> contacto@agromercadolasparcelas.cl</p>
+                <p><strong>Horario de atención:</strong> Lunes a Viernes 9:00 - 19:00 hrs</p>
+                <p><strong>Horario de atención:</strong> Sabado y Domingo 10:00 - 15:00 hrs</p>
+            </div>
+            <div class="contact-form">
+                <h3>Envíanos un mensaje</h3>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Nombre:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Asunto:</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensaje:</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Enviar Mensaje</button>
+                </form>
+            </div>     
+        </div>
+    </section>
+
+    <!-- Pie de página -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>Las Parcelas</h2>
+                <p>Del campo y mesa a casa</p>
+            </div>
+            <div class="footer-links">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="ventas.html">Ventas</a></li>
+                    <li><a href="ventas-producctores.html">Productores</a></li>
+                    <li><a href="registro.html">Registro</a></li>
+                </ul>
+            </div>
+            <div class="footer-categories">
+                <h3>Categorías</h3>
+                <ul>
+                    <li><a href="productos.html?categoria=frutas">Frutas</a></li>
+                    <li><a href="productos.html?categoria=verduras">Verduras</a></li>
+                    <li><a href="productos.html?categoria=carnes">Carnes</a></li>
+                    <li><a href="productos.html?categoria=lacteos">Lácteos</a></li>
+                    <li><a href="productos.html?categoria=insumos">Insumos</a></li>
+                    <li><a href="productos.html?categoria=pescados">Pescados y Mariscos</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h3>Síguenos</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">Facebook</a>
+                    <a href="#" class="social-icon">Instagram</a>
+                    <a href="#" class="social-icon">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Las Parcelas - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <!-- Script de autenticación -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos del DOM
+            const accountButton = document.getElementById('account-button');
+            const userStatus = document.getElementById('user-status');
+            const authModal = document.getElementById('auth-modal');
+            const closeAuthModal = document.getElementById('close-auth-modal');
+            const authTabs = document.querySelectorAll('.auth-tab');
+            const authTabContents = document.querySelectorAll('.auth-tab-content');
+            const switchTabs = document.querySelectorAll('.switch-tab');
+            
+            // Formularios
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            
+            // Elementos del perfil
+            const profileName = document.getElementById('profile-name');
+            const profileEmail = document.getElementById('profile-email');
+            const logoutBtn = document.getElementById('logout-btn');
+            
+            // Estado de autenticación
+            let currentUser = null;
+            
+            // Cargar usuario del localStorage
+            function loadUser() {
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    updateUIForLoggedUser();
+                }
+            }
+            
+            // Guardar usuario en localStorage
+            function saveUser(user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                currentUser = user;
+                updateUIForLoggedUser();
+            }
+            
+            // Actualizar UI para usuario logueado
+            function updateUIForLoggedUser() {
+                if (currentUser) {
+                    userStatus.textContent = currentUser.firstname;
+                    accountButton.classList.add('logged-in');
+                    
+                    // Actualizar perfil
+                    profileName.textContent = `${currentUser.firstname} ${currentUser.lastname}`;
+                    profileEmail.textContent = currentUser.email;
+                    
+                    // Cambiar pestañas disponibles
+                    document.querySelector('[data-tab="login"]').style.display = 'none';
+                    document.querySelector('[data-tab="register"]').style.display = 'none';
+                    document.querySelector('[data-tab="profile"]').style.display = 'block';
+                    document.querySelector('[data-tab="profile"]').classList.add('active');
+                    document.getElementById('profile-tab').classList.add('active');
+                    document.getElementById('login-tab').classList.remove('active');
+                    document.getElementById('register-tab').classList.remove('active');
+                } else {
+                    userStatus.textContent = 'Iniciar Sesión';
+                    accountButton.classList.remove('logged-in');
+                    
+                    // Restaurar pestañas
+                    document.querySelector('[data-tab="login"]').style.display = 'block';
+                    document.querySelector('[data-tab="register"]').style.display = 'block';
+                    document.querySelector('[data-tab="profile"]').style.display = 'none';
+                    document.querySelector('[data-tab="login"]').classList.add('active');
+                    document.getElementById('login-tab').classList.add('active');
+                    document.getElementById('profile-tab').classList.remove('active');
+                }
+            }
+            
+            // Abrir modal de autenticación
+            accountButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentUser) {
+                    // Si está logueado, mostrar perfil directamente
+                    document.querySelector('[data-tab="profile"]').click();
+                } else {
+                    // Si no está logueado, mostrar login
+                    document.querySelector('[data-tab="login"]').click();
+                }
+                authModal.classList.add('active');
+            });
+            
+            // Cerrar modal
+            closeAuthModal.addEventListener('click', function() {
+                authModal.classList.remove('active');
+            });
+            
+            authModal.addEventListener('click', function(e) {
+                if (e.target === authModal) {
+                    authModal.classList.remove('active');
+                }
+            });
+            
+            // Funcionalidad de pestañas
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    if (this.style.display === 'none') return;
+                    
+                    authTabs.forEach(t => t.classList.remove('active'));
+                    authTabContents.forEach(c => c.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    const tabName = this.dataset.tab;
+                    document.getElementById(`${tabName}-tab`).classList.add('active');
+                });
+            });
+            
+            // Cambiar entre pestañas con enlaces
+            switchTabs.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetTab = this.dataset.tab;
+                    document.querySelector(`[data-tab="${targetTab}"]`).click();
+                });
+            });
+            
+            // Toggle de visibilidad de contraseña
+            document.querySelectorAll('.toggle-password').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = this.dataset.target;
+                    const input = document.getElementById(targetId);
+                    const type = input.type === 'password' ? 'text' : 'password';
+                    input.type = type;
+                    this.innerHTML = type === 'password' ? '<i class="eye-icon">👁️</i>' : '<i class="eye-icon">🙈</i>';
+                });
+            });
+            
+            // Medidor de fuerza de contraseña
+            document.getElementById('register-password').addEventListener('input', function() {
+                const password = this.value;
+                const strengthFill = document.getElementById('password-strength-fill');
+                const strengthText = document.getElementById('password-strength-text');
+                
+                let strength = 0;
+                if (password.length >= 8) strength++;
+                if (/[A-Z]/.test(password)) strength++;
+                if (/[a-z]/.test(password)) strength++;
+                if (/[0-9]/.test(password)) strength++;
+                if (/[^A-Za-z0-9]/.test(password)) strength++;
+                
+                strengthFill.className = 'strength-fill';
+                if (strength <= 2) {
+                    strengthFill.classList.add('weak');
+                    strengthText.textContent = 'Débil';
+                    strengthText.style.color = '#dc3545';
+                } else if (strength <= 3) {
+                    strengthFill.classList.add('medium');
+                    strengthText.textContent = 'Media';
+                    strengthText.style.color = '#ffc107';
+                } else {
+                    strengthFill.classList.add('strong');
+                    strengthText.textContent = 'Fuerte';
+                    strengthText.style.color = '#28a745';
+                }
+            });
+            
+            // Validación de formularios
+            function showError(elementId, message) {
+                const errorElement = document.getElementById(elementId);
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+            
+            function hideError(elementId) {
+                const errorElement = document.getElementById(elementId);
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+            
+            function validateEmail(email) {
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(email);
+            }
+            
+            function validatePhone(phone) {
+                const regex = /^[\+]?[0-9\s\-\(\)]{8,}$/;
+                return regex.test(phone);
+            }
+            
+            // Formulario de login
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value;
+                
+                // Limpiar errores previos
+                hideError('login-email-error');
+                hideError('login-password-error');
+                
+                let isValid = true;
+                
+                if (!email) {
+                    showError('login-email-error', 'El correo electrónico es requerido');
+                    isValid = false;
+                } else if (!validateEmail(email)) {
+                    showError('login-email-error', 'Ingresa un correo electrónico válido');
+                    isValid = false;
+                }
+                
+                if (!password) {
+                    showError('login-password-error', 'La contraseña es requerida');
+                    isValid = false;
+                }
+                
+                if (!isValid) return;
+                
+                // Simular login (en producción esto iría al servidor)
+                const loginBtn = document.getElementById('login-btn');
+                const btnText = loginBtn.querySelector('.btn-text');
+                const spinner = loginBtn.querySelector('.btn-spinner');
+                
+                loginBtn.disabled = true;
+                btnText.textContent = 'Iniciando sesión...';
+                spinner.style.display = 'block';
+                
+                // Simular delay de red
+                setTimeout(() => {
+                    // Buscar usuario en localStorage (simulando base de datos)
+                    const users = JSON.parse(localStorage.getItem('users') || '[]');
+                    const user = users.find(u => u.email === email && u.password === password);
+                    
+                    if (user) {
+                        saveUser(user);
+                        authModal.classList.remove('active');
+                        showSuccessMessage('¡Bienvenido de vuelta!');
+                    } else {
+                        showError('login-password-error', 'Credenciales incorrectas');
+                    }
+                    
+                    loginBtn.disabled = false;
+                    btnText.textContent = 'Iniciar Sesión';
+                    spinner.style.display = 'none';
+                }, 1500);
+            });
+            
+            // Formulario de registro
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const firstname = document.getElementById('register-firstname').value.trim();
+                const lastname = document.getElementById('register-lastname').value.trim();
+                const email = document.getElementById('register-email').value.trim();
+                const phone = document.getElementById('register-phone').value.trim();
+                const password = document.getElementById('register-password').value;
+                const confirmPassword = document.getElementById('register-confirm-password').value;
+                const acceptTerms = document.getElementById('accept-terms').checked;
+                
+                // Limpiar errores previos
+                ['firstname', 'lastname', 'email', 'phone', 'password', 'confirm-password', 'terms'].forEach(field => {
+                    hideError(`register-${field}-error`);
+                });
+                
+                let isValid = true;
+                
+                if (!firstname) {
+                    showError('register-firstname-error', 'El nombre es requerido');
+                    isValid = false;
+                }
+                
+                if (!lastname) {
+                    showError('register-lastname-error', 'El apellido es requerido');
+                    isValid = false;
+                }
+                
+                if (!email) {
+                    showError('register-email-error', 'El correo electrónico es requerido');
+                    isValid = false;
+                } else if (!validateEmail(email)) {
+                    showError('register-email-error', 'Ingresa un correo electrónico válido');
+                    isValid = false;
+                }
+                
+                if (!phone) {
+                    showError('register-phone-error', 'El teléfono es requerido');
+                    isValid = false;
+                } else if (!validatePhone(phone)) {
+                    showError('register-phone-error', 'Ingresa un teléfono válido');
+                    isValid = false;
+                }
+                
+                if (!password) {
+                    showError('register-password-error', 'La contraseña es requerida');
+                    isValid = false;
+                } else if (password.length < 8) {
+                    showError('register-password-error', 'La contraseña debe tener al menos 8 caracteres');
+                    isValid = false;
+                }
+                
+                if (password !== confirmPassword) {
+                    showError('register-confirm-password-error', 'Las contraseñas no coinciden');
+                    isValid = false;
+                }
+                
+                if (!acceptTerms) {
+                    showError('terms-error', 'Debes aceptar los términos y condiciones');
+                    isValid = false;
+                }
+                
+                if (!isValid) return;
+                
+                // Verificar si el email ya existe
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const existingUser = users.find(u => u.email === email);
+                
+                if (existingUser) {
+                    showError('register-email-error', 'Este correo electrónico ya está registrado');
+                    return;
+                }
+                
+                // Simular registro
+                const registerBtn = document.getElementById('register-btn');
+                const btnText = registerBtn.querySelector('.btn-text');
+                const spinner = registerBtn.querySelector('.btn-spinner');
+                
+                registerBtn.disabled = true;
+                btnText.textContent = 'Creando cuenta...';
+                spinner.style.display = 'block';
+                
+                setTimeout(() => {
+                    const newUser = {
+                        id: Date.now(),
+                        firstname,
+                        lastname,
+                        email,
+                        phone,
+                        password,
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    users.push(newUser);
+                    localStorage.setItem('users', JSON.stringify(users));
+                    saveUser(newUser);
+                    
+                    authModal.classList.remove('active');
+                    showSuccessMessage('¡Cuenta creada exitosamente!');
+                    
+                    registerBtn.disabled = false;
+                    btnText.textContent = 'Crear Cuenta';
+                    spinner.style.display = 'none';
+                    
+                    // Limpiar formulario
+                    registerForm.reset();
+                }, 2000);
+            });
+            
+            // Cerrar sesión
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                currentUser = null;
+                localStorage.removeItem('currentUser');
+                updateUIForLoggedUser();
+                authModal.classList.remove('active');
+                showSuccessMessage('Sesión cerrada exitosamente');
+            });
+            
+            // Función para mostrar mensajes de éxito
+            function showSuccessMessage(message) {
+                // Crear elemento de notificación
+                const notification = document.createElement('div');
+                notification.className = 'success-notification';
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <span class="notification-icon">✅</span>
+                        <span class="notification-text">${message}</span>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Animar entrada
+                setTimeout(() => notification.classList.add('show'), 100);
+                
+                // Remover después de 3 segundos
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => document.body.removeChild(notification), 300);
+                }, 3000);
+            }
+            
+            // Inicializar
+            loadUser();
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accountButton = document.getElementById('account-button');
+            const loginModal = document.getElementById('login-modal');
+            const closeModal = document.getElementById('close-modal');
+            
+            // Abrir modal al hacer clic en el botón de cuenta
+            accountButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.classList.add('active');
+            });
+            
+            // Cerrar modal al hacer clic en el botón de cerrar
+            closeModal.addEventListener('click', function() {
+                loginModal.classList.remove('active');
+            });
+            
+            // Cerrar modal al hacer clic fuera del formulario
+            loginModal.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Función para formatear precios en pesos chilenos
+        function formatearPrecioCLP(precio) {
+            const precioNum = Math.round(Number(precio));
+            const precioStr = precioNum.toString();
+            const precioConPuntos = precioStr.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            return '$' + precioConPuntos;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const cartCount = document.getElementById('cart-count');
+            const cartBtn = document.getElementById('cart-btn');
+            const cartModal = document.getElementById('cart-modal');
+            const closeCartModal = document.getElementById('close-cart-modal');
+            const cartModalItems = document.getElementById('cart-modal-items');
+            const cartModalTotal = document.getElementById('cart-modal-total');
+            const clearCartBtn = document.getElementById('clear-cart-btn');
+
+            function updateCartCount() {
+                const totalItems = carrito.reduce((sum, item) => sum + (item.cantidad || 1), 0);
+                cartCount.textContent = totalItems;
+            }
+
+            function updateCartModal() {
+                cartModalItems.innerHTML = '';
+                let total = 0;
+
+                if (carrito.length === 0) {
+                    cartModalItems.innerHTML = '<p class="cart-empty-message">Tu carrito está vacío</p>';
+                    cartModalTotal.textContent = '$0';
+                    return;
+                }
+
+                carrito.forEach((item, index) => {
+                    const cantidad = item.cantidad || 1;
+                    const precioUnitario = Number(item.precio) || 0;
+                    const subtotal = precioUnitario * cantidad;
+                    total += subtotal;
+
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'cart-item-modal';
+                    itemDiv.innerHTML = `
+                        <div class="cart-item-modal-image">
+                            <img src="${item.imagen || 'img/carne.jpg'}" alt="${item.nombre}" onerror="this.src='img/carne.jpg'">
+                        </div>
+                        <div class="cart-item-modal-details">
+                            <div class="cart-item-modal-name">${item.nombre}</div>
+                            <div class="cart-item-modal-price">${formatearPrecioCLP(precioUnitario)}</div>
+                            <div class="cart-item-modal-quantity">
+                                <button class="btn-quantity-modal" data-action="decrease" data-index="${index}">-</button>
+                                <span class="cart-item-modal-quantity-value">${cantidad}</span>
+                                <button class="btn-quantity-modal" data-action="increase" data-index="${index}">+</button>
+                                <button class="btn-remove-item" data-index="${index}">Eliminar</button>
+                            </div>
+                        </div>
+                    `;
+                    cartModalItems.appendChild(itemDiv);
+                });
+
+                cartModalTotal.textContent = formatearPrecioCLP(total);
+
+                // Añadir event listeners a los botones de cantidad y eliminar
+                document.querySelectorAll('.btn-quantity-modal').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        const action = this.dataset.action;
+                        
+                        if (action === 'increase') {
+                            carrito[index].cantidad = (carrito[index].cantidad || 1) + 1;
+                        } else if (action === 'decrease') {
+                            carrito[index].cantidad = Math.max(1, (carrito[index].cantidad || 1) - 1);
+                        }
+                        
+                        localStorage.setItem('carrito', JSON.stringify(carrito));
+                        updateCartCount();
+                        updateCartModal();
+                    });
+                });
+
+                document.querySelectorAll('.btn-remove-item').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        carrito.splice(index, 1);
+                        localStorage.setItem('carrito', JSON.stringify(carrito));
+                        updateCartCount();
+                        updateCartModal();
+                    });
+                });
+            }
+
+            function updateCart() {
+                updateCartCount();
+                updateCartModal();
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+            }
+
+            updateCart();
+
+            // Abrir modal del carrito
+            cartBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                updateCartModal();
+                cartModal.classList.add('active');
+            });
+
+            // Cerrar modal del carrito
+            closeCartModal.addEventListener('click', function() {
+                cartModal.classList.remove('active');
+            });
+
+            // Cerrar modal al hacer clic fuera
+            cartModal.addEventListener('click', function(e) {
+                if (e.target === cartModal) {
+                    cartModal.classList.remove('active');
+                }
+            });
+
+            // Funcionalidad de pestañas
+            const cartTabs = document.querySelectorAll('.cart-tab');
+            const cartTabContents = document.querySelectorAll('.cart-tab-content');
+
+            cartTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.dataset.tab;
+                    
+                    // Remover clase active de todas las pestañas
+                    cartTabs.forEach(t => t.classList.remove('active'));
+                    cartTabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Agregar clase active a la pestaña seleccionada
+                    this.classList.add('active');
+                    document.getElementById(`cart-${tabName}-tab`).classList.add('active');
+                    
+                    // Actualizar resumen si estamos en la pestaña de pago
+                    if (tabName === 'payment') {
+                        updatePaymentSummary();
+                    }
+                });
+            });
+
+            // Ir a pago desde productos
+            document.getElementById('go-to-payment').addEventListener('click', function() {
+                if (carrito.length === 0) {
+                    alert('Tu carrito está vacío. Agrega productos antes de proceder al pago.');
+                    return;
+                }
+                document.querySelector('[data-tab="payment"]').click();
+            });
+
+            // Volver a productos desde pago
+            document.getElementById('back-to-items').addEventListener('click', function() {
+                document.querySelector('[data-tab="items"]').click();
+            });
+
+            // Mostrar/ocultar detalles de tarjeta
+            document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const cardDetails = document.getElementById('card-details');
+                    if (this.value === 'tarjeta') {
+                        cardDetails.style.display = 'block';
+                    } else {
+                        cardDetails.style.display = 'none';
+                    }
+                });
+            });
+
+            // Completar pedido
+            document.getElementById('complete-order').addEventListener('click', function() {
+                if (validatePaymentForm()) {
+                    // Aquí iría la lógica para procesar el pago
+                    alert('¡Pedido completado exitosamente! Te contactaremos pronto para coordinar la entrega.');
+                    carrito = [];
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
+                    updateCart();
+                    cartModal.classList.remove('active');
+                }
+            });
+
+            function updatePaymentSummary() {
+                let subtotal = 0;
+                carrito.forEach(item => {
+                    const cantidad = item.cantidad || 1;
+                    const precio = Number(item.precio) || 0;
+                    subtotal += precio * cantidad;
+                });
+                
+                const shipping = subtotal > 50000 ? 0 : 5000; // Envío gratis sobre $50.000
+                const total = subtotal + shipping;
+                
+                document.getElementById('summary-subtotal').textContent = formatearPrecioCLP(subtotal);
+                document.getElementById('summary-shipping').textContent = shipping === 0 ? 'Gratis' : formatearPrecioCLP(shipping);
+                document.getElementById('summary-total').innerHTML = `<strong>${formatearPrecioCLP(total)}</strong>`;
+            }
+
+            function validatePaymentForm() {
+                const requiredFields = [
+                    'payment-name', 'payment-email', 'payment-phone',
+                    'payment-address', 'payment-city', 'payment-region'
+                ];
+                
+                for (const fieldId of requiredFields) {
+                    const field = document.getElementById(fieldId);
+                    if (!field.value.trim()) {
+                        alert('Por favor completa todos los campos requeridos.');
+                        field.focus();
+                        return false;
+                    }
+                }
+                
+                const email = document.getElementById('payment-email').value;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('Por favor ingresa un correo electrónico válido.');
+                    document.getElementById('payment-email').focus();
+                    return false;
+                }
+                
+                const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+                if (paymentMethod === 'tarjeta') {
+                    const cardNumber = document.getElementById('card-number').value.replace(/\s/g, '');
+                    const cardExpiry = document.getElementById('card-expiry').value;
+                    const cardCvv = document.getElementById('card-cvv').value;
+                    
+                    if (cardNumber.length < 16 || !/^\d+$/.test(cardNumber)) {
+                        alert('Por favor ingresa un número de tarjeta válido.');
+                        document.getElementById('card-number').focus();
+                        return false;
+                    }
+                    
+                    if (!/^\d{2}\/\d{2}$/.test(cardExpiry)) {
+                        alert('Por favor ingresa una fecha de expiración válida (MM/AA).');
+                        document.getElementById('card-expiry').focus();
+                        return false;
+                    }
+                    
+                    if (cardCvv.length < 3 || !/^\d+$/.test(cardCvv)) {
+                        alert('Por favor ingresa un CVV válido.');
+                        document.getElementById('card-cvv').focus();
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
+
+            // Vaciar carrito
+            clearCartBtn.addEventListener('click', function() {
+                if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
+                    carrito = [];
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
+                    updateCart();
+                }
+            });
+
+            // Añadir productos al carrito desde los botones de la página
+            document.querySelectorAll('.btn-add-cart').forEach(button => {
+                button.addEventListener('click', () => {
+                    const card = button.closest('.product-card');
+                    const name = card.querySelector('h3').textContent;
+                    const priceText = card.querySelector('.product-price').textContent;
+                    const image = card.querySelector('img').src;
+                    
+                    // Parsear precio
+                    const priceMatch = priceText.match(/[\d.,]+/);
+                    let price = 0;
+                    if (priceMatch) {
+                        price = parseFloat(priceMatch[0].replace(/\./g, '').replace(',', '.'));
+                    }
+
+                    // Verificar si el producto ya existe
+                    const existingItem = carrito.find(item => item.nombre === name);
+                    if (existingItem) {
+                        existingItem.cantidad = (existingItem.cantidad || 1) + 1;
+                    } else {
+                        carrito.push({ 
+                            nombre: name, 
+                            precio: price, 
+                            cantidad: 1, 
+                            imagen: image 
+                        });
+                    }
+
+                    updateCart();
+
+                    // Animación del botón del carrito
+                    cartBtn.classList.add('bump');
+                    setTimeout(() => {
+                        cartBtn.classList.remove('bump');
+                    }, 300);
+                });
+            });
+        });
+    </script>
+    <script src="shared-stock.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const offersContainer = document.getElementById('offers-container');
+            if (!offersContainer || typeof loadProducts !== 'function') return;
+
+            const products = loadProducts();
+            const items = products.slice(0, 4);
+
+            offersContainer.innerHTML = items.map(product => {
+                const badge = product.category === 'Pescados' || product.category === 'Mariscos' ? 'NUEVO' : 'OFERTA';
+                const image = product.image || 'img/pescados.jpg';
+                const formattedPrice = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(product.price);
+
+                return `
+                    <article class="offer-card">
+                        <div class="offer-badge">${badge}</div>
+                        <img src="${image}" alt="${product.name}">
+                        <div class="offer-info">
+                            <h3>${product.name}</h3>
+                            <p class="offer-price">${formattedPrice}</p>
+                            <p>Stock disponible: ${product.stock}</p>
+                            <button class="btn-add-cart" data-name="${product.name}" data-price="${product.price}">Agregar al carrito</button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            const cartCount = document.getElementById('cart-count');
+            const cartBtn = document.getElementById('cart-btn');
+            let cart = JSON.parse(localStorage.getItem('carrito')) || [];
+
+            offersContainer.querySelectorAll('.btn-add-cart').forEach(button => {
+                button.addEventListener('click', () => {
+                    const name = button.dataset.name;
+                    const price = button.dataset.price;
+
+                    // Verificar si el producto ya existe
+                    const existingItem = cart.find(item => item.nombre === name);
+                    if (existingItem) {
+                        existingItem.cantidad = (existingItem.cantidad || 1) + 1;
+                    } else {
+                        cart.push({ 
+                            nombre: name, 
+                            precio: Number(price), 
+                            cantidad: 1, 
+                            imagen: 'img/mango.jpg' // Imagen por defecto para ofertas
+                        });
+                    }
+
+                    localStorage.setItem('carrito', JSON.stringify(cart));
+                    if (cartCount) {
+                        const totalItems = cart.reduce((sum, item) => sum + (item.cantidad || 1), 0);
+                        cartCount.textContent = totalItems;
+                    }
+
+                    if (cartBtn) {
+                        cartBtn.classList.add('bump');
+                        setTimeout(() => cartBtn.classList.remove('bump'), 300);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
