@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Productores - Las Parcelas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="shared-stock.js"></script>
+    <style>
+        body {
+            background: #F7F1E7;
+            color: #333;
+        }
+        .producer-header {
+            text-align: center;
+            padding: 2rem 1rem 1rem;
+        }
+        .producer-header h1 {
+            margin: 0;
+            color: #4D3C31;
+        }
+        .producer-header p {
+            margin: 0.5rem auto 0;
+            max-width: 720px;
+            color: #6B584B;
+        }
+        .producer-panel {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem 3rem;
+        }
+        .panel-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+        .panel-actions button {
+            background: #A97555;
+            color: white;
+            border: none;
+            padding: 0.9rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .panel-actions button:hover {
+            background: #8a5a44;
+        }
+        .panel-actions .status-text {
+            color: #5a463a;
+            font-size: 0.95rem;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        .stock-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 760px;
+        }
+        .stock-table th,
+        .stock-table td {
+            padding: 1rem 1rem;
+            border-bottom: 1px solid #E6DDD2;
+            text-align: left;
+        }
+        .stock-table th {
+            background: #F0E4DA;
+            color: #4B3326;
+            font-weight: 700;
+        }
+        .stock-table tbody tr:hover {
+            background: #FFF5EA;
+        }
+        .stock-table input,
+        .stock-table select {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #D9C8B7;
+            border-radius: 8px;
+            background: #fff;
+            color: #3b2c24;
+            font-size: 0.95rem;
+        }
+        .stock-table input:focus,
+        .stock-table select:focus {
+            outline: 2px solid #A97555;
+            outline-offset: 2px;
+            border-color: #A97555;
+        }
+        .save-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            color: white;
+            background: #4E8F4B;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .stock-table tbody tr.saved .save-chip {
+            opacity: 1;
+        }
+        .stock-table button {
+            background: #4D3C31;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.6rem 0.9rem;
+            cursor: pointer;
+        }
+        .stock-table button:hover {
+            background: #36261c;
+        }
+        .empty-state {
+            padding: 2rem;
+            text-align: center;
+            color: #816653;
+        }
+        @media (max-width: 760px) {
+            .panel-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="producer-header">
+        <h1>Panel de Stock para Productores</h1>
+        <p>Visualiza y edita tus productos en tiempo real. Los cambios se guardan automáticamente en tu navegador para poder revisarlos de inmediato.</p>
+    </header>
+
+    <main class="producer-panel">
+        <div class="panel-actions">
+            <button id="add-product">Agregar producto nuevo</button>
+            <button id="reset-data">Restaurar valores iniciales</button>
+            <button id="save-server">Guardar en servidor</button>
+            <span class="status-text" id="update-status">Última actualización: nunca</span>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="stock-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Stock disponible</th>
+                        <th>Precio (CLP)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="stock-table-body"></tbody>
+            </table>
+            <div class="empty-state" id="empty-state" style="display:none;">
+                No hay productos definidos. Agrega uno para comenzar.
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const tableBody = document.getElementById('stock-table-body');
+        const updateStatusText = document.getElementById('update-status');
+        const emptyState = document.getElementById('empty-state');
+
+        function setStatus(message) {
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            updateStatusText.textContent = `${message} · ${time}`;
+        }
+
+        async function saveToServer(products) {
+            const ok = await saveProducts(products, { server: true });
+            setStatus(ok ? 'Guardado en servidor' : 'Guardado local; servidor no disponible');
+        }
+
+        function formatPrice(value) {
+            return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(value);
+        }
+
+        function renderTable() {
+            const products = loadProducts();
+            tableBody.innerHTML = '';
+
+            if (!products.length) {
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                const content = `
+                    <td><input type="text" data-field="name" data-id="${product.id}" value="${product.name}" /></td>
+                    <td><input type="text" data-field="category" data-id="${product.id}" value="${product.category}" /></td>
+                    <td><input type="number" min="0" step="1" data-field="stock" data-id="${product.id}" value="${product.stock}" /></td>
+                    <td><input type="number" min="0" step="100" data-field="price" data-id="${product.id}" value="${product.price}" /></td>
+                    <td>
+                        <button type="button" data-action="delete" data-id="${product.id}">Eliminar</button>
+                        <div class="save-chip">Guardado</div>
+                    </td>
+                `;
+                row.innerHTML = content;
+                tableBody.appendChild(row);
+            });
+
+            tableBody.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', handleInputChange);
+            });
+
+            tableBody.querySelectorAll('button[data-action="delete"]').forEach(button => {
+                button.addEventListener('click', handleDeleteProduct);
+            });
+        }
+
+        function handleInputChange(event) {
+            const input = event.target;
+            const id = Number(input.dataset.id);
+            const field = input.dataset.field;
+            const products = loadProducts();
+            const product = products.find(item => item.id === id);
+
+            if (!product) return;
+
+            if (field === 'stock') {
+                product.stock = Math.max(0, Number(input.value) || 0);
+            } else if (field === 'price') {
+                product.price = Math.max(0, Number(input.value) || 0);
+            } else {
+                product[field] = input.value;
+            }
+
+            saveProducts(products);
+            setStatus('Guardado automáticamente');
+            showSavedIndicator(id);
+        }
+
+        function showSavedIndicator(id) {
+            const buttonCell = tableBody.querySelector(`button[data-id="${id}"]`);
+            if (!buttonCell) return;
+            const chip = buttonCell.parentElement.querySelector('.save-chip');
+            if (!chip) return;
+            chip.style.opacity = '1';
+            setTimeout(() => {
+                chip.style.opacity = '0';
+            }, 1200);
+        }
+
+        function handleDeleteProduct(event) {
+            const id = Number(event.target.dataset.id);
+            let products = loadProducts();
+            products = products.filter(item => item.id !== id);
+            saveProducts(products);
+            renderTable();
+        }
+
+        function addProduct() {
+            const products = loadProducts();
+            const nextId = products.length ? Math.max(...products.map(item => item.id)) + 1 : 1;
+            products.push({ id: nextId, name: 'Nuevo producto', category: 'Categoria', stock: 0, price: 0 });
+            saveProducts(products);
+            renderTable();
+            setStatus('Producto agregado');
+        }
+
+        function resetData() {
+            resetProducts();
+            renderTable();
+            setStatus('Valores restaurados');
+        }
+
+        document.getElementById('add-product').addEventListener('click', addProduct);
+        document.getElementById('reset-data').addEventListener('click', resetData);
+        document.getElementById('save-server').addEventListener('click', () => {
+            const products = loadProducts();
+            saveToServer(products);
+        });
+
+        renderTable();
+        setStatus('Datos cargados');
+
+    </script>
+</body>
+</html>

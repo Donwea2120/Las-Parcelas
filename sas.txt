@@ -1,0 +1,13 @@
+<aticle class="category-card">
+   <h3>Pescados y Mariscos</h3>
+   <img src"img/pescados.jpg" alt="Categoría Pescados y Mariscos">
+                <ul class="category-examples">
+                    <li>Salmón</li>
+                    <li>Atún</li>
+                    <li>Camarones</li>
+                    <li>Locos</li>
+                    <li>Algas Marinas</li>
+                </ul>
+                <a href="productos.html?categoria=pescados" class="btn-category">Ver todos</a>
+            </article>
+    

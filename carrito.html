@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las parcelas - Carrito de Compras</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #ebebeb;
+        }
+        h1 {
+            color: #483d3c;
+        }
+        .cart-container {
+            background-color: #fff9f0;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            border: 1px solid rgba(167, 207, 93, 0.35);
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 16px;
+            background-color: #ffffff;
+            border-radius: 14px;
+            border: 1px solid rgba(167, 207, 93, 0.18);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        }
+        .cart-item:last-child {
+            margin-bottom: 0;
+        }
+        .cart-item-image {
+            flex: 0 0 90px;
+            margin-right: 18px;
+        }
+        .cart-item-image img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid #e4d6b2;
+        }
+        .cart-item-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .cart-item-name {
+            font-weight: bold;
+            font-size: 17px;
+            color: #483d3c;
+        }
+        .cart-item-price {
+            color: #5d5d5d;
+            font-size: 14px;
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 6px 0;
+        }
+        .btn-quantity {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background-color: #A7CF5D;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .quantity {
+            min-width: 40px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .item-total {
+            font-weight: bold;
+            color: #A97555;
+            font-size: 16px;
+        }
+        .cart-container button {
+            border: none;
+            padding: 13px 20px;
+            background-color: #A7CF5D;
+            color: #483d3c;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 14px;
+        }
+        .cart-container button:hover {
+            background-color: #97bf48;
+        }
+        .btn-remove {
+            background-color: #A97555;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            align-self: flex-start;
+            margin-top: 5px;
+        }
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #483D3C;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .main-nav h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: white;
+        }
+        .main-nav .nav-links {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .main-nav .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .main-nav .nav-links a:hover,
+        .main-nav .nav-links a.active {
+            opacity: 0.85;
+        }
+        #mensaje-exito {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f4f2e8;
+            color: #483d3c;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <h1>Las Parcelas</h1>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="productos.html">Productos</a>
+            <a href="ventas.html">Ventas</a>
+            <a href="carrito.html" class="active">Carrito</a>
+        </div>
+    </nav>
+    <h1>Carrito de Compras</h1>
+    <div class="cart-container">
+        <ul id="cart-items"></ul>
+        <p>Total: <span id="cart-total">$0</span></p>
+        <p>Cantidad total de items: <span id="cart-count">0</span></p>
+        <button onclick="mostrarPago()">Proceder al Pago</button>
+    </div>
+    <div id="pago" style="display: none;">
+        <h2>Información de Pago</h2>
+        <form onsubmit="finalizarCompra(); return false;">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required><br>
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" required><br>
+            <button type="submit">Confirmar Compra</button>
+        </form>
+        <div id="mensaje-exito">
+            ¡Pago exitoso! Gracias por tu compra. su pedido será procesado pronto.
+        </div>
+    </div>
+    <script src="carrito.js"></script>
+</body>
+</html>

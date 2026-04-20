@@ -1,0 +1,119 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    // ===== MODAL LOGIN =====
+    const accountButton = document.getElementById('account-button');
+    const loginModal = document.getElementById('login-modal');
+    const closeModal = document.getElementById('close-modal');
+
+    accountButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        loginModal.classList.add('active');
+    });
+
+    closeModal.addEventListener('click', function() {
+        loginModal.classList.remove('active');
+    });
+
+    loginModal.addEventListener('click', function(e) {
+        if (e.target === loginModal) {
+            loginModal.classList.remove('active');
+        }
+    });
+
+    // ===== FORMULARIO PRODUCTOS =====
+    const publishForm = document.getElementById('publish-form');
+    const productTable = document.getElementById('product-table');
+    const emptyState = document.getElementById('empty-state');
+    const tbody = productTable.querySelector('tbody');
+
+    publishForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Obtener datos
+        const name = document.getElementById('product-name').value;
+        const category = document.getElementById('product-category').value;
+        const price = document.getElementById('product-price').value;
+        const quantity = document.getElementById('product-quantity').value;
+        const unit = document.getElementById('product-unit').value;
+        const location = document.getElementById('product-location').value;
+
+        // Crear fila
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td>${name}</td>
+            <td>${category}</td>
+            <td>$${price} / ${unit}</td>
+            <td>${quantity} ${unit}</td>
+            <td>${location}</td>
+            <td class="product-actions">
+                <button class="btn-edit">Editar</button>
+                <button class="btn-delete">Eliminar</button>
+            </td>
+        `;
+
+        tbody.appendChild(row);
+
+        // ===== ORDENAR POR NOMBRE =====
+        ordenarTabla();
+
+        // Mostrar tabla
+        productTable.style.display = 'table';
+        emptyState.style.display = 'none';
+
+        // Limpiar formulario
+        publishForm.reset();
+
+        // Scroll suave
+        productTable.scrollIntoView({ behavior: 'smooth' });
+
+        // Eventos botones
+        agregarEventos();
+    });
+
+    // ===== ORDENAR TABLA =====
+    function ordenarTabla() {
+        const filas = Array.from(tbody.querySelectorAll('tr'));
+
+        filas.sort((a, b) => {
+            const nombreA = a.children[0].textContent.toLowerCase();
+            const nombreB = b.children[0].textContent.toLowerCase();
+            return nombreA.localeCompare(nombreB);
+        });
+
+        tbody.innerHTML = "";
+        filas.forEach(fila => tbody.appendChild(fila));
+    }
+
+    // ===== EVENTOS BOTONES =====
+    function agregarEventos() {
+        const deleteButtons = document.querySelectorAll('.btn-delete');
+
+        deleteButtons.forEach(btn => {
+            btn.onclick = function() {
+                this.closest('tr').remove();
+
+                // Si no hay productos
+                if (tbody.children.length === 0) {
+                    productTable.style.display = 'none';
+                    emptyState.style.display = 'block';
+                }
+            };
+        });
+
+        const editButtons = document.querySelectorAll('.btn-edit');
+
+        editButtons.forEach(btn => {
+            btn.onclick = function() {
+                const fila = this.closest('tr');
+                const nombre = fila.children[0].textContent;
+
+                alert("Editar producto: " + nombre);
+                // Aquí puedes hacer edición real después
+            };
+        });
+    }
+
+});
+</script>

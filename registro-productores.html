@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las Parcelas - Registro de Productores</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos específicos para la página de registro */
+        .register-section {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .register-header h1 {
+            color: #483D3C;
+            margin-bottom: 0.5rem;
+        }
+
+        .register-header p {
+            color: #666;
+        }
+
+        .register-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .register-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #483D3C;
+        }
+
+        .register-form input,
+        .register-form select,
+        .register-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .register-form select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23483D3C" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .btn-submit {
+            background-color: #A7CF5D;
+            color: #483D3C;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #4c53bd;
+        }
+
+        .login-link {
+            color: #55a959;
+            text-decoration: none;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        .required-field::after {
+            content: ' *';
+            color: #dfff27;
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .terms-checkbox input {
+            width: auto;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Menú de navegación principal -->
+    <nav class="main-nav">
+        <div class="logo">
+            <h1>Las Parcelas</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="productos.html">Productos</a>
+            <a href="ventas.html">Ventas</a>
+            <a href="registro.html" class="active">Registro</a>
+            <a href="carrito.html">Carrito</a>
+        </div>
+        <a href="#" class="account-button" id="account-button">
+            <img src="img/usericon.png" alt="Cuenta">
+        </a>
+    </nav>
+    
+    <!-- Modal de inicio de sesión -->
+    <div class="login-modal" id="login-modal">
+        <div class="login-form">
+            <button class="close-modal" id="close-modal">&times;</button>
+            <h2>Iniciar Sesión</h2>
+            <form action="index.html" method="get">
+                <div class="form-group">
+                    <label for="login-email">Correo Electrónico</label>
+                    <input type="email" id="login-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                    <label style="display: flex; align-items: center;">
+                        <input type="checkbox" style="width: auto; margin-right: 5px;"> Recordarme
+                    </label>
+                    <a href="#" style="color: #334935; text-decoration: none;">¿Olvidaste tu contraseña?</a>
+                </div>
+                <button type="submit" class="btn-submit" style="width: 100%; margin-top: 1rem;">Iniciar Sesión</button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem;">
+                ¿No tienes una cuenta? <a href="registro.html" style="color: #47ad4f; text-decoration: none;">Regístrate</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Encabezado principal con banner -->
+    <header class="main-header">
+        <div class="header-content">
+            <h1>Registro de Productores</h1>
+            <p>Únete a nuestra plataforma y comienza a vender tus productos agrícolas</p>
+        </div>
+    </header>
+
+    <!-- Sección de Registro -->
+    <section class="register-section">
+        <div class="register-header">
+            <h1>Crear una cuenta</h1>
+            <p>Complete el formulario para registrarse como productor</p>
+        </div>
+
+        <form class="register-form" action="index.html" method="get">
+            <!-- Información Personal -->
+            <div class="form-group">
+                <label for="nombre" class="required-field">Nombre Completo</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="required-field">Correo Electrónico</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono" class="required-field">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="required-field">Contraseña</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password" class="required-field">Confirmar Contraseña</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+
+            <!-- Información del Productor -->
+            <div class="form-group">
+                <label for="tipo-productor" class="required-field">Tipo de Productor</label>
+                <select id="tipo-productor" name="tipo-productor" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="agricultor">Agricultor</option>
+                    <option value="ganadero">Ganadero</option>
+                    <option value="mixto">Mixto (Agricultura y Ganadería)</option>
+                    <option value="pescadso y mariscos">Pescados y Mariscos</option>
+                    <option value="otros productos">Otros Productos</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="-principal" class="required-field">Categoría Principal de Productos</label>
+                <select id="categoria-principal" name="categoria-principal" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="frutas">Frutas</option>
+                    <option value="verduras">Verduras</option>
+                    <option value="carnes">Carnes</option>
+                    <option value="lacteos">Lácteos y Otros</option>
+                    <option value="insumos">Insumos</option>
+                    <option value="pescados y mariscos">Pescados y Mariscos</option>
+                    <option value="otros productos">Otros Productos</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ubicacion" class="required-field">Ubicación (Comuna)</label>
+                <input type="text" id="ubicacion" name="ubicacion" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción de su Producción</label>
+                <textarea id="descripcion" name="descripcion" rows="4"></textarea>
+            </div>
+
+            <!-- Términos y Condiciones -->
+            <div class="form-group terms-checkbox">
+                <input type="checkbox" id="terminos" name="terminos" required>
+                <label for="terminos" class="required-field">Acepto los términos y condiciones de uso de la plataforma</label>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Registrarme</button>
+                <p>¿Ya tienes una cuenta? <a href="#" class="login-link">Iniciar Sesión</a></p>
+            </div>
+        </form>
+    </section>
+
+    <!-- Pie de página -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>Las parecelas</h2>
+                <p>Del campo a tu mesa</p>
+            </div>
+            <div class="footer-links">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="ventas.html">Ventas</a></li>
+                    <li><a href="registro.html">Registro</a></li>
+                    <li><a href="carrito.html">Carrito</a></li>
+                </ul>
+            </div>
+            <div class="footer-categories">
+                <h3>Categorías</h3>
+                <ul>
+                    <li><a href="productos.html?categoria=frutas">Frutas</a></li>
+                    <li><a href="productos.html?categoria=verduras">Verduras</a></li>
+                    <li><a href="productos.html?categoria=carnes">Carnes</a></li>
+                    <li><a href="productos.html?categoria=lacteos">Lácteos y Otros</a></li>
+                    <li><a href="productos.html?categoria=insumos">Insumos</a></li>
+                    <li><a href="productos.html?categoria=pescados">Pescados y Mariscos</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h3>Síguenos</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">Facebook</a>
+                    <a href="#" class="social-icon">Instagram</a>
+                    <a href="#" class="social-icon">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Agromercado Las Parcelas - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Validación simple del formulario
+        document.querySelector('.register-form').addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert('Las contraseñas no coinciden. Por favor, inténtelo de nuevo.');
+                return false;
+            }
+            
+            alert('¡Registro exitoso! Serás redirigido a la página principal.');
+            return true;
+        });
+
+        // Script para el modal de inicio de sesión
+        document.addEventListener('DOMContentLoaded', function() {
+            const accountButton = document.getElementById('account-button');
+            const loginModal = document.getElementById('login-modal');
+            const closeModal = document.getElementById('close-modal');
+            
+            // Abrir modal al hacer clic en el botón de cuenta
+            accountButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.classList.add('active');
+            });
+            
+            // Cerrar modal al hacer clic en el botón de cerrar
+            closeModal.addEventListener('click', function() {
+                loginModal.classList.remove('active');
+            });
+            
+            // Cerrar modal al hacer clic fuera del formulario
+            loginModal.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

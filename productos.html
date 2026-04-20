@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las parcelasS - Productos</title>
+    <script src="shared-stock.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f5f5f5;
+        }
+
+        /* NAV */
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background: #483D3C;
+            color: white;
+        }
+
+        .nav-links a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .active {
+            font-weight: bold;
+        }
+
+        /* HEADER */
+        .main-header {
+            background: #A7CF5D;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* SECCIONES */
+        .category-section {
+            padding: 2rem;
+        }
+
+        .category-header {
+            border-bottom: 2px solid #A7CF5D;
+            margin-bottom: 1rem;
+        }
+
+        /* GRID */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+            gap: 1.5rem;
+        }
+
+        /* CARD */
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-price {
+            color: #A97555;
+            font-weight: bold;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .btn-add-cart {
+            background: #A97555;
+            color: white;
+        }
+
+        .btn-details {
+            background: #ddd;
+        }
+
+        .product-price-options {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-price-options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .product-price-options label:hover {
+            background-color: #f0f0f0;
+        }
+
+        .product-price-options input[type="radio"] {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav class="main-nav">
+    <h1>Las Parcelas</h1>
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="#" class="active">Productos</a>
+        <a href="ventas.html">Ventas</a>
+        <a href="carrito.html">Carrito</a>
+    </div>
+</nav>
+
+<!-- HEADER -->
+<header class="main-header">
+    <h1>Productos</h1>
+    <p>Explora nuestra tienda</p>
+</header>
+
+<main>
+
+<!-- PRODUCTOS ACTUALIZADOS -->
+<section class="category-section">
+    <div class="category-header"><h2>Productos actualizados</h2></div>
+    <div class="product-grid" id="dynamic-product-grid"></div>
+</section>
+
+<!-- VERDURAS -->
+<section class="category-section">
+    <div class="category-header"><h2>Verduras</h2></div>
+    <div class="product-grid">
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/papa.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Papa</h3>
+                <p class="product-price">$1.200 / kg</p>
+                <p>Papa fresca de la región, ideal para cocinar.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/tomate.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Tomate</h3>
+                <p class="product-price">$2.500 / kg</p>
+                <p>Tomate maduro, sabroso y natural.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/lechugas.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Lechugas</h3>
+                <p class="product-price">$1.800 / unidad</p>
+                <p>Lechuga fresca y crujiente para ensaladas.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/zanahoria.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Zanahorias</h3>
+                <p class="product-price">$900 / kg</p>
+                <p>Zanahorias naranjas, frescas y dulces.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/paltas.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Paltas</h3>
+                <p class="product-price">$3.800 / kg</p>
+                <p>Paltas Hass maduras y cremosas.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<!-- FRUTAS -->
+<section class="category-section">
+    <div class="category-header"><h2>Frutas</h2></div>
+    <div class="product-grid">
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/manzana.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Manzanas</h3>
+                <p class="product-price">$2.200 / kg</p>
+                <p>Manzanas frescas y crujientes, variedad roja.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/naranjas.jfif">
+            </div>
+            <div class="product-info">
+                <h3>Naranjas</h3>
+                <p class="product-price">$1.800 / kg</p>
+                <p>Naranjas jugosas y dulces, recién cosechadas.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/platano.jfif">
+            </div>
+            <div class="product-info">
+                <h3>Plátanos</h3>
+                <p class="product-price">$1.500 / kg</p>
+                <p>Plátanos amarillos, maduros y dulces.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/paltas.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Paltas</h3>
+                <p class="product-price">$3.800 / kg</p>
+                <p>Paltas Hass maduras y cremosas.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/mango.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Mangos</h3>
+                <p class="product-price">$2.500 / kg</p>
+                <p>Mangos dulces y jugosos, fruta de estación.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<!-- CARNES -->
+<section class="category-section">
+    <div class="category-header"><h2>Carnes</h2></div>
+    <div class="product-grid">
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/carne.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Carne de Vacuno</h3>
+                <p class="product-price">$8.500 / kg</p>
+                <p>Carne premium de pradera, Vacuno categoria V.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/pollo.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Pollo</h3>
+                <p class="product-price">$6.500 / kg</p>
+                <p>Pollo de campo, alimentado con semillas.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/cerdo.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Cerdo</h3>
+                <p class="product-price">$7.000 / kg</p>
+                <p>Cerdo de críado, criado en condiciones higenicas.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/cordero.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Cordero</h3>
+                <p class="product-price">$9.000 / kg</p>
+                <p>Cordero de críado, criado en condiciones naturales.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+    </div>
+
+</section>
+
+<!-- LACTEOS -->
+<section class="category-section">
+    <div class="category-header"><h2>Lácteos</h2></div>
+    <div class="product-grid">
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/leche.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Leche</h3>
+                <p class="product-price">$1.500 / litro</p>
+                <p>Leche fresca natural.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/huevo.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Huevos de casa</h3>
+                <div class="product-price-options">
+                    <label>
+                        <input type="radio" name="huevos-option" value="docena" data-price="4800" checked>
+                        $4.800 / docena
+                    </label>
+                    <label>
+                        <input type="radio" name="huevos-option" value="bandeja" data-price="8000">
+                        $8.000 / bandeja
+                    </label>
+                </div>
+                <p>Huevos de casa.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/queso.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Queso</h3>
+                <p class="product-price">$5.000 / kg</p>
+                <p>Queso fresco, ideal para ensaladas.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/mantequilla.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Mantequilla</h3>
+                <p class="product-price">$3.500 / barra</p>
+                <p>Mantequilla de alta calidad.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/yogurt.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Yogurt</h3>
+                <div class="product-price-options">
+                    <label>
+                        <input type="radio" name="yogurt-option" value="1/2 litro" data-price="6000" checked>
+                        $6.000 / 1/2 litro
+                    </label>
+                    <label>
+                        <input type="radio" name="yogurt-option" value="litro" data-price="12000">
+                        $12.000 / litro
+                    </label>
+                </div>
+                <p>Yogurt natural.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/queso de cabra.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Queso de Cabra</h3>
+                <div class="product-price-options">
+                    <label>
+                        <input type="radio" name="queso-cabra-option" value="mitad" data-price="8000" checked>
+                        $8.000 / mitad
+                    </label>
+                    <label>
+                        <input type="radio" name="queso-cabra-option" value="kg" data-price="9000">
+                        $9.000 / kg
+                    </label>
+                </div>
+                <p>Queso de cabra fresco.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<!-- INSUMOS -->
+<section class="category-section">
+    <div class="category-header"><h2>Insumos</h2></div>
+    <div class="product-grid">
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/semilla.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Semillas</h3>
+                <p class="product-price">$3.000</p>
+                <p>Variedad de cultivos.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/heno.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Heno</h3>
+                <p class="product-price">$12.000</p>
+                <p>Alta calidad para animales.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/fertilizante.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Fertilizante</h3>
+                <p class="product-price">$35.000</p>
+                <p>Para cultivos mejora el crecimiento.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/abono.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Abono Orgánico</h3>
+                <p class="product-price">$25.000</p>
+                <p>Mejora la calidad del suelo.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/herramientas.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Herramientas</h3>
+                <p class="product-price">desde $35.000 a $100.000</p>
+                <p>Para labranza y mantenimiento.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<!-- PESCADOS -->
+<section class="category-section">
+    <div class="category-header"><h2>Pescados y Mariscos</h2></div>
+    <div class="product-grid">
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/salmon.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Salmón</h3>
+                <p class="product-price">$12.000 / kg</p>
+                <p>Fresco y saludable.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/atun.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Atún</h3>
+                <p class="product-price">$14.000 / kg</p>
+                <p>Fresco ideal para comidas asiáticas.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/camaron.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Camarones</h3>
+                <p class="product-price">$18.000 / kg</p>
+                <p>Fresco y grandes.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/merluza.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Merluza</h3>
+                <p class="product-price">$15.000 / kg</p>
+                <p>Traidas cada mañana de pescadores locales de la región.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/almejas.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Almejas</h3>
+                <p class="product-price">$12.000 / kg</p>
+                <p>Frescas y deliciosas, perfectas para ceviches.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/loco.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Locos</h3>
+                <p class="product-price">$15.000 / kg</p>
+                <p>Perfectos para ensaladas o comer con mayonesa y limon.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/alga.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Algas Nori</h3>
+                <div class="product-price-options">
+                    <label>
+                        <input type="radio" name="algas-option" value="kg" data-price="6500" checked>
+                        $6.500 / kg
+                    </label>
+                    <label>
+                        <input type="radio" name="algas-option" value="unidad de bolsa" data-price="3200">
+                        $3.200 / unidad de bolsa
+                    </label>
+                </div>
+                <p>Ideal para rollitos de sushi o ramen.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<!-- OTROS -->
+<section class="category-section">
+    <div class="category-header"><h2>Otros Productos</h2></div>
+    <div class="product-grid">
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/aceite.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Aceite de Oliva</h3>
+                <p class="product-price">$10.000 / litro</p>
+                <p>Aceite de oliva extra virgen.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/maravilla.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Aceite de maravilla</h3>
+                <p class="product-price">$30.000 / caja</p>
+                <p>Aceite de maravilla, ideal.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/panko.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Panko</h3>
+                <p class="product-price">$5.000 / paquete</p>
+                <p>Panko, ideal para empanar.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/especias.jfif">
+            </div>
+            <div class="product-info">
+                <h3>Especias Variadas</h3>
+                <p class="product-price">$8.500 / paquete</p>
+                <p>Mezcla de especias naturales para cocinar.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/frascos.jfif">
+            </div>
+            <div class="product-info">
+                <h3>Conservas Caseras</h3>
+                <p class="product-price">$6.000 / frasco</p>
+                <p>Conservas naturales hechas en casa.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img src="img/miel.jpg">
+            </div>
+            <div class="product-info">
+                <h3>Miel</h3>
+                <p class="product-price">$8.000 / frasco</p>
+                <p>Miel pura de abeja, natural y saludable.</p>
+                <div class="product-actions">
+                    <button class="btn-add-cart">Añadir</button>
+                    <button class="btn-details">Detalles</button>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const botonesAgregar = document.querySelectorAll(".btn-add-cart");
+
+    function parsePrecioCLP(precioTexto) {
+        const match = precioTexto.match(/\d+(?:[\.\d]*)(?:,\d+)?/);
+        if (!match) return 0;
+        let valor = match[0].replace(/\./g, '');
+        valor = valor.replace(',', '.');
+        return parseFloat(valor);
+    }
+    
+    botonesAgregar.forEach(boton => {
+        boton.addEventListener("click", function() {
+            const card = this.closest(".product-card");
+            const nombre = card.querySelector("h3").textContent;
+            const imagen = card.querySelector("img").src;
+            
+            // Verificar si el producto tiene opciones de precio
+            const priceOptions = card.querySelectorAll('input[type="radio"]:checked');
+            let precio, unidad;
+            
+            if (priceOptions.length > 0) {
+                // Producto con opciones de precio
+                const selectedOption = priceOptions[0];
+                precio = parseFloat(selectedOption.getAttribute('data-price'));
+                unidad = selectedOption.value;
+                
+                // Crear nombre único para el producto con la unidad
+                const nombreCompleto = `${nombre} (${unidad})`;
+                
+                // Obtener carrito actual de localStorage
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                
+                // Agregar producto
+                const productoExistente = carrito.find(item => item.nombre === nombreCompleto);
+                if (productoExistente) {
+                    productoExistente.cantidad++;
+                } else {
+                    carrito.push({nombre: nombreCompleto, precio, cantidad: 1, imagen, unidad});
+                }
+                
+                // Guardar en localStorage
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                
+                alert(`${nombreCompleto} agregado al carrito!`);
+            } else {
+                // Producto sin opciones de precio
+                const precioTexto = card.querySelector(".product-price").textContent;
+                precio = parsePrecioCLP(precioTexto);
+                
+                // Obtener carrito actual de localStorage
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                
+                // Agregar producto
+                const productoExistente = carrito.find(item => item.nombre === nombre);
+                if (productoExistente) {
+                    productoExistente.cantidad++;
+                } else {
+                    carrito.push({nombre, precio, cantidad: 1, imagen});
+                }
+                
+                // Guardar en localStorage
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                
+                alert(`${nombre} agregado al carrito!`);
+            }
+        });
+    });
+});
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof loadProducts !== 'function') return;
+        const container = document.getElementById('dynamic-product-grid');
+        if (!container) return;
+
+        const products = loadProducts();
+        if (!products.length) {
+            container.innerHTML = '<p style="padding: 1rem; color: #483D3C;">No hay productos actualizados en este momento.</p>';
+            return;
+        }
+
+        container.innerHTML = products.map(product => {
+            const image = product.image || 'img/pescados.jpg';
+            const priceText = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(product.price);
+            return `
+                <article class="product-card">
+                    <div class="product-image">
+                        <img src="${image}" alt="${product.name}">
+                    </div>
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p class="product-price">${priceText}</p>
+                        <p>Stock: ${product.stock}</p>
+                        <div class="product-actions">
+                            <button class="btn-add-cart" data-name="${product.name}" data-price="${product.price}">Añadir</button>
+                            <button class="btn-details">Detalles</button>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }).join('');
+
+        container.querySelectorAll('.btn-add-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const name = button.dataset.name;
+                const price = Number(button.dataset.price || 0);
+                const product = products.find(p => p.name === name) || {};
+                const image = product.image || 'img/pescados.jpg';
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                const productoExistente = carrito.find(item => item.nombre === name);
+                if (productoExistente) {
+                    productoExistente.cantidad++;
+                } else {
+                    carrito.push({ nombre: name, precio: price, cantidad: 1, imagen: image });
+                }
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                alert(`${name} agregado al carrito!`);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
